@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Хост: mysql
--- Время создания: Мар 13 2024 г., 19:49
--- Версия сервера: 8.0.29
--- Версия PHP: 8.0.24
+-- Хост: 127.0.0.1:3306
+-- Время создания: Июн 19 2024 г., 22:21
+-- Версия сервера: 8.0.30
+-- Версия PHP: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,44 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `Место`
+--
+
+CREATE TABLE `Место` (
+  `id` int NOT NULL,
+  `id_hall` int NOT NULL,
+  `roow` int NOT NULL,
+  `number` int NOT NULL,
+  `price_category` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `Место`
+--
+
+INSERT INTO `Место` (`id`, `id_hall`, `roow`, `number`, `price_category`) VALUES
+(1, 1, 1, 1, '1'),
+(2, 1, 1, 2, '1'),
+(3, 1, 1, 3, '1'),
+(4, 1, 2, 1, '1'),
+(5, 1, 2, 2, '1'),
+(6, 1, 2, 3, '1'),
+(7, 2, 1, 1, '2'),
+(8, 2, 1, 2, '2'),
+(9, 2, 1, 3, '2'),
+(10, 2, 2, 1, '2'),
+(11, 2, 2, 2, '2'),
+(12, 2, 2, 3, '2'),
+(13, 3, 1, 1, '3'),
+(14, 3, 1, 2, '3'),
+(15, 3, 1, 3, '3'),
+(16, 3, 2, 1, '3'),
+(17, 3, 2, 2, '3'),
+(18, 3, 2, 3, '3');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `Билет`
 --
 
@@ -32,7 +70,19 @@ CREATE TABLE `Билет` (
   `id_session` int NOT NULL,
   `id_place` int NOT NULL,
   `FIO` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `Билет`
+--
+
+INSERT INTO `Билет` (`id`, `id_session`, `id_place`, `FIO`) VALUES
+(1, 1, 2, 'Комлев Иван Сергеевич'),
+(2, 2, 12, 'Шехеров Олег Иванович'),
+(3, 3, 18, 'Казаринов Алексей Васильевич'),
+(4, 1, 3, 'Комлев Матвей Сергеевич'),
+(5, 3, 13, 'Хайитов Шохин Дилшодович'),
+(6, 3, 14, 'Хайитова Ольга Витальевна');
 
 -- --------------------------------------------------------
 
@@ -43,7 +93,7 @@ CREATE TABLE `Билет` (
 CREATE TABLE `Зал` (
   `id` int NOT NULL,
   `title` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Дамп данных таблицы `Зал`
@@ -57,34 +107,6 @@ INSERT INTO `Зал` (`id`, `title`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Место`
---
-
-CREATE TABLE `Место` (
-  `id` int NOT NULL,
-  `id_hall` int NOT NULL,
-  `row` int NOT NULL,
-  `number` int NOT NULL,
-  `price_category` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Дамп данных таблицы `Место`
---
-
-INSERT INTO `Место` (`id`, `id_hall`, `row`, `number`, `price_category`) VALUES
-(1, 1, 1, 1, ''),
-(2, 2, 1, 2, ''),
-(3, 3, 1, 3, ''),
-(4, 1, 1, 4, ''),
-(5, 2, 2, 5, ''),
-(6, 3, 2, 6, ''),
-(7, 1, 2, 7, ''),
-(8, 2, 2, 8, '');
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `Сеанс`
 --
 
@@ -92,8 +114,17 @@ CREATE TABLE `Сеанс` (
   `id` int NOT NULL,
   `id_hall` int NOT NULL,
   `id_film` int NOT NULL,
-  `datetime_start` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `datetime_start` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `Сеанс`
+--
+
+INSERT INTO `Сеанс` (`id`, `id_hall`, `id_film`, `datetime_start`) VALUES
+(1, 1, 1, '2024-04-26 18:00:00.000000'),
+(2, 2, 2, '2024-04-29 14:40:00.000000'),
+(3, 3, 3, '2024-04-26 16:20:00.000000');
 
 -- --------------------------------------------------------
 
@@ -104,8 +135,17 @@ CREATE TABLE `Сеанс` (
 CREATE TABLE `Фильм` (
   `id` int NOT NULL,
   `title` varchar(100) NOT NULL,
-  `duration` datetime(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `duration` time(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `Фильм`
+--
+
+INSERT INTO `Фильм` (`id`, `title`, `duration`) VALUES
+(1, 'Смешарики', '01:29:33.000000'),
+(2, 'Лунтик', '01:12:20.000000'),
+(3, 'Лекция по базам данных', '01:20:00.000000');
 
 -- --------------------------------------------------------
 
@@ -118,11 +158,28 @@ CREATE TABLE `Цена` (
   `id_session` int NOT NULL,
   `price_category` varchar(100) NOT NULL,
   `price` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `Цена`
+--
+
+INSERT INTO `Цена` (`id`, `id_session`, `price_category`, `price`) VALUES
+(1, 1, '1', 100),
+(2, 2, '2', 200),
+(3, 3, '3', 300);
 
 --
 -- Индексы сохранённых таблиц
 --
+
+--
+-- Индексы таблицы `Место`
+--
+ALTER TABLE `Место`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_hall` (`id_hall`),
+  ADD KEY `id_hall_2` (`id_hall`);
 
 --
 -- Индексы таблицы `Билет`
@@ -137,14 +194,6 @@ ALTER TABLE `Билет`
 --
 ALTER TABLE `Зал`
   ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `Место`
---
-ALTER TABLE `Место`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_hall` (`id_hall`),
-  ADD KEY `id_hall_2` (`id_hall`);
 
 --
 -- Индексы таблицы `Сеанс`
@@ -172,26 +221,32 @@ ALTER TABLE `Цена`
 --
 
 --
+-- AUTO_INCREMENT для таблицы `Место`
+--
+ALTER TABLE `Место`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT для таблицы `Зал`
 --
 ALTER TABLE `Зал`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT для таблицы `Место`
---
-ALTER TABLE `Место`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
 -- AUTO_INCREMENT для таблицы `Сеанс`
 --
 ALTER TABLE `Сеанс`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
+
+--
+-- Ограничения внешнего ключа таблицы `Место`
+--
+ALTER TABLE `Место`
+  ADD CONSTRAINT `Место_ibfk_1` FOREIGN KEY (`id_hall`) REFERENCES `Зал` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Ограничения внешнего ключа таблицы `Билет`
@@ -199,12 +254,6 @@ ALTER TABLE `Сеанс`
 ALTER TABLE `Билет`
   ADD CONSTRAINT `Билет_ibfk_1` FOREIGN KEY (`id_session`) REFERENCES `Сеанс` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `Билет_ibfk_2` FOREIGN KEY (`id_place`) REFERENCES `Место` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Ограничения внешнего ключа таблицы `Место`
---
-ALTER TABLE `Место`
-  ADD CONSTRAINT `Место_ibfk_1` FOREIGN KEY (`id_hall`) REFERENCES `Зал` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Ограничения внешнего ключа таблицы `Сеанс`
