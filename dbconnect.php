@@ -10,7 +10,7 @@ if (file_exists(__DIR__."/.env"))
 }
 // подключение к БД
 try {
-    $conn = new PDO("mysql:host=$_ENV[localhost];dbname=$_ENV[dbname]", $_ENV['root'], $_ENV['NO']);
+    $conn = new PDO("mysql:host=$_ENV[localhost];dbname=$_ENV[dbname]", $_ENV['dbuser'], $_ENV['NO']);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
